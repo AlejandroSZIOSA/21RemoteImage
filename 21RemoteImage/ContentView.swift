@@ -41,18 +41,37 @@ struct ContentView: View {
         
         //3 .PLACEHOLDER
         
-        AsyncImage(url: URL(string: imageURL)) {
-          
-            image in image
-            image.imageModifier() //Using the extension
-                
-        } placeholder: {
-            //then other atributes
-            //Using extension
-            Image(systemName:"photo.circle.fill").iconModifier()
-               
+//        AsyncImage(url: URL(string: imageURL)) {
+//
+//            image in image
+//            image.imageModifier() //Using the extension
+//
+//        } placeholder: {
+//            //then other atributes
+//            //Using extension
+//            Image(systemName:"photo.circle.fill").iconModifier()
+//
+//        }
+//        .padding(40)
+        
+        // 4- ASINC PHASE IMAGE
+        
+        AsyncImage(url: URL(string: imageURL)){phase in
+            //SUCCESS: The image succefully loaded
+            //FAILURE: ERROR
+            //EMPTY: NO image is loaded.
+            
+            if let image = phase.image{
+                image.imageModifier()
+            }else if phase.error != nil{
+                Image(systemName: "ant.circle.fill").iconModifier()
+            } else {
+                Image(systemName: "photo.circle.fill").iconModifier()
+            }
         }
         .padding(40)
+        
+        
     }
 }
 
