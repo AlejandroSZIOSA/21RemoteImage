@@ -56,7 +56,7 @@ struct ContentView: View {
         
         // 4- ASINC PHASE IMAGE
         
-        AsyncImage(url: URL(string: imageURL)){phase in
+        /*AsyncImage(url: URL(string: imageURL)){phase in
             //SUCCESS: The image succefully loaded
             //FAILURE: ERROR
             //EMPTY: NO image is loaded.
@@ -70,7 +70,23 @@ struct ContentView: View {
             }
         }
         .padding(40)
+        */
         
+        //5 - ANIMATION
+        
+        AsyncImage(url: URL(string: imageURL)) {phase in
+                switch phase{
+                case .success(let image):
+                    image.imageModifier()
+                case .failure(_):
+                    Image(systemName: "ant.circle.fill").iconModifier()
+                case .empty:
+                    Image(systemName: "photo.circle.fill").iconModifier()
+                @unknown default:
+                    ProgressView()//Fix the Problem :)
+                }
+        }
+        .padding(40)
         
     }
 }
