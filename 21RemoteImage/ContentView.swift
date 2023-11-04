@@ -79,7 +79,9 @@ struct ContentView: View {
                 case .success(let image):
                     image.imageModifier()
                     //Add transition Animation to image :)
-                        .transition(.move(edge: .bottom))
+                        //.transition(.move(edge: .bottom))
+                        //.transition(.slide)
+                        .transition(.scale)
                 case .failure(_):
                     Image(systemName: "ant.circle.fill").iconModifier()
                 case .empty:
